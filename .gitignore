@@ -10,3 +10,4 @@ example/target/
 .bsp/
 .metals/
 .vscode/
+.bloop/
