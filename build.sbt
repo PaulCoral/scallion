@@ -1,8 +1,7 @@
 
 val commonSettings = Seq(
   version            := "0.5",
-  scalaVersion       := "2.12.8",
-  crossScalaVersions := Seq("2.12.8", "2.13.1"),
+  scalaVersion       := "3.0.0-RC1",
   organization       := "ch.epfl.lara",
   resolvers          += "bintray-epfl-lara" at "https://dl.bintray.com/epfl-lara/maven",
 )
@@ -29,8 +28,8 @@ lazy val scallion = project
     target in Compile in doc := baseDirectory.value / "docs",
 
     libraryDependencies ++= Seq(
-      "org.scalatest" %% "scalatest" % "3.0.8" % "test",
-      "ch.epfl.lara" %% "silex" % "0.5" % "test",
+      ("org.scalatest" %% "scalatest" % "3.2.2" % "test").withDottyCompat(scalaVersion.value),
+      ("ch.epfl.lara" %% "silex" % "0.5" % "test").withDottyCompat(scalaVersion.value),
     ),
 
     bintrayOrganization := Some("epfl-lara"),
