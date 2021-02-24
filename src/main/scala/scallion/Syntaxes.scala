@@ -150,7 +150,7 @@ trait Syntaxes {
         case (_, Failure()) => Failure()
         case (Success(a), Success(b)) => Success(a ++ b)
         case _ => ev(this).~(that).map({
-          case xs ~ ys => xs ++ ys
+          case scallion.~(xs, ys) => xs ++ ys
         }, {
           (xys: Seq[B]) => {
             for (i <- 0 to xys.size) yield {
@@ -218,7 +218,7 @@ trait Syntaxes {
     def :+[B](that: Syntax[B])
         (implicit ev: Syntax[A] =:= Syntax[Seq[B]]): Syntax[Seq[B]] =
       ev(this).~(that).map({
-        case xs ~ x => xs :+ x
+        case scallion.~(xs,x) => xs :+ x
       }, {
         case xs if xs.size >= 1 => Seq(xs.init ~ xs.last)
         case _ => Seq()
@@ -232,7 +232,7 @@ trait Syntaxes {
     def +:[B](that: Syntax[B])
         (implicit ev: Syntax[A] =:= Syntax[Seq[B]]): Syntax[Seq[B]] =
       that.~(ev(this)).map({
-        case x ~ xs => x +: xs
+        case scallion.~(x,xs) => x +: xs
       }, {
         case xs if xs.size >= 1 => Seq(xs.head ~ xs.tail)
         case _ => Seq()
