@@ -28,7 +28,7 @@ lazy val scallion = project
     target in Compile in doc := baseDirectory.value / "docs",
 
     libraryDependencies ++= Seq(
-      ("org.scalatest" %% "scalatest" % "3.2.2" % "test").withDottyCompat(scalaVersion.value),
+      ("org.scalatest" %% "scalatest" % "3.2.5" % "test").withDottyCompat(scalaVersion.value),
       ("ch.epfl.lara" %% "silex" % "0.5" % "test").withDottyCompat(scalaVersion.value),
     ),
 
