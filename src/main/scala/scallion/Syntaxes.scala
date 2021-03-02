@@ -113,6 +113,10 @@ trait Syntaxes {
     */
   sealed trait Syntax[A] {
 
+    import scala.reflect.TypeTest
+    given typeTestFromAny : TypeTest[Any,A]
+
+
     private[scallion] val trace = Traces.get
 
     // Combinators.
@@ -300,10 +304,10 @@ trait Syntaxes {
       *
       * @group combinator
       */
-    def up[B >: A](implicit ev: Manifest[A]): Syntax[B] =
-      this.map((x: A) => x, (y: B) => ev.unapply(y) match {
-        case None => Seq()
-        case Some(x) => Seq(x)
+    def up[B >: A](using tt: TypeTest[B,A]): Syntax[B] =
+      this.map((x: A) => x, (y: B) => y match {
+        case tt(x:A) => Seq(x)
+        case _ => Seq()
       })
 
     /** Marks `this` syntax.
